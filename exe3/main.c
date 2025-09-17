@@ -13,10 +13,8 @@ const int BTN_PIN_G = 26;
 const int LED_PIN_R = 4;
 const int LED_PIN_G = 6;
 
-QueueHandle_t xQueueButId;     // R
-QueueHandle_t xQueueButId_G;   // G
-
-// -------------------- R --------------------
+QueueHandle_t xQueueButId;     
+QueueHandle_t xQueueButId_G;   
 void led_1_task(void *p) {
     gpio_init(LED_PIN_R);
     gpio_set_dir(LED_PIN_R, GPIO_OUT);
@@ -43,24 +41,16 @@ void btn_1_task(void *p) {
 
     int delay = 0;
     while (true) {
-        if (!gpio_get(BTN_PIN_R)) {
-
-            while (!gpio_get(BTN_PIN_R)) {
-                vTaskDelay(pdMS_TO_TICKS(1));
-            }
-
-            if (delay < 1000) {
-                delay += 100;
-            } else {
-                delay = 100;
-            }
-            printf("delay btn %d \n", delay);
-            xQueueSend(xQueueButId, &delay, 0);
+        if (delay < 1000) {
+            delay += 100;
+        } else {
+            delay = 100;
         }
-    }
+        printf("delay btn %d \n", delay);
+        xQueueSend(xQueueButId, &delay, 0);
+  }
 }
 
-// -------------------- G (CTRL+C/CTRL+V, removendo linhas com gpio_get) --------------------
 void led_2_task(void *p) {
     gpio_init(LED_PIN_G);
     gpio_set_dir(LED_PIN_G, GPIO_OUT);
@@ -87,7 +77,6 @@ void btn_2_task(void *p) {
 
     int delay = 0;
     while (true) {
-        // linhas com gpio_get removidas
         if (delay < 1000) {
             delay += 100;
         } else {
