@@ -106,17 +106,15 @@ int main() {
                                     true,
                                     &gpio_callback);
 
-  gpio_set_irq_enabled_with_callback(BTN_PIN_R, 
-                                  GPIO_IRQ_EDGE_RISE | 
-                                  GPIO_IRQ_EDGE_FALL, 
-                                  true,
-                                  &gpio_callback);
+  gpio_set_irq_enabled(BTN_PIN_R,
+                        GPIO_IRQ_EDGE_FALL,
+                        true);
   xTaskCreate(led_1_task, "LED_Task 1", 256, NULL, 1, NULL);
   xTaskCreate(btn_1_task, "BTN_Task 1", 256, NULL, 1, NULL);
   xTaskCreate(led_2_task, "LED_Task 2", 256, NULL, 1, NULL);
   xTaskCreate(btn_2_task, "BTN_Task 2", 256, NULL, 1, NULL);
   vTaskStartScheduler();
-  
+
 
   while (true)
     ;
