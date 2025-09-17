@@ -85,7 +85,7 @@ void btn_1_task(void *p) {
   gpio_pull_up(BTN_PIN_R);
 
   while (true) {
-    if(xSemaphoreTake(xSemaphore_r, pdMS_TO_TICKS(500)) == pdTRUE)
+    if(xSemaphoreTake(xSemaphore_r, pdMS_TO_TICKS(500)) == pdTRUE){
       vTaskDelay(pdMS_TO_TICKS(1));
       xSemaphoreGive(xSemaphore_ledr);
   }
