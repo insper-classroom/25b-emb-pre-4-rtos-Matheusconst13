@@ -105,7 +105,7 @@ int main() {
                                     GPIO_IRQ_EDGE_RISE | 
                                     GPIO_IRQ_EDGE_FALL, 
                                     true,
-                                    &gpio_callback);
+                                    &btn_callback);
 
   gpio_set_irq_enabled(BTN_PIN_R,
                         GPIO_IRQ_EDGE_FALL,
